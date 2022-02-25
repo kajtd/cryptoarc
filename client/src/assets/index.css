@@ -12,6 +12,10 @@ body {
   @apply min-h-screen my-0 mx-auto bg-mainBg text-grayLight;
 }
 
+body.modal {
+  @apply overflow-hidden;
+}
+
 a {
   text-decoration: none;
 }
