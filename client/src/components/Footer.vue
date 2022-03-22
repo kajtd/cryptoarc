@@ -6,7 +6,7 @@
           <li v-for="(link, index) in links" :key="index" class="px-5 py-2">
             <a
               :href="link.href"
-              class="text-base leading-6 transition-colors text-gray-500 hover:text-green-500"
+              class="text-base leading-6 transition-colors text-gray-500 hover:text-primary"
             >
               {{ link.name }}
             </a>
@@ -31,6 +31,10 @@ export default defineComponent({
       {
         href: '#home',
         name: 'Home',
+      },
+      {
+        href: '#about',
+        name: 'About',
       },
       {
         href: '#transactions',

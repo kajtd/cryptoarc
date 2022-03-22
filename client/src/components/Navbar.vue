@@ -1,9 +1,9 @@
 <template>
   <header class="w-full flex justify-center z-50">
     <div
-      class="flex items-center h-full flex-row-reverse md:flex-row justify-center md:justify-between w-full p-8 max-w-7xl"
+      class="flex items-center h-full flex-row-reverse laptop:flex-row justify-center laptop:justify-between w-full p-8 max-w-7xl"
     >
-      <div class="flex items-center flex-1 justify-end md:hidden">
+      <div class="flex items-center flex-1 justify-end laptop:hidden">
         <div>
           <input
             id="menu-toggle"
@@ -15,36 +15,34 @@
           <label class="menu-btn" for="menu-toggle"><span /></label>
         </div>
       </div>
-      <div class="md:flex-1 md:justify-start">
+      <div class="laptop:flex-1 laptop:justify-start">
         <a href="/" class="flex items-center">
-          <span class="text-2xl text-green-500">cryptonow</span>
+          <span class="text-2xl text-primary">cryptonow</span>
         </a>
       </div>
-      <nav class="h-full hidden md:flex items-center">
-        <ul class="flex gap-4">
+      <nav class="h-full hidden laptop:flex items-center">
+        <ul class="flex gap-2">
           <li
             v-for="link in links"
             :key="link.name"
-            class="text-gray-300 text-sm p-2 mx-1 font-semibold transition duration-300 cursor-pointer hover:text-green-500"
+            class="text-gray-300 text-sm p-2 mx-1 font-semibold transition duration-300 cursor-pointer hover:text-primary"
           >
             <a :href="link.href">{{ link.name }}</a>
           </li>
         </ul>
-        <button class="w-32 px-4 py-2 bg-green-500 text-sm rounded-md shadow-2xl ml-12">
-          Connect wallet
-        </button>
+        <Button class="text-sm ml-12"> Connect wallet </Button>
       </nav>
     </div>
     <transition name="mobile-nav">
       <nav
         v-show="mobileNav"
-        class="md:hidden flex flex-col justify-center h-full fixed top-0 left-0 p-8 w-full mobile-nav z-10 bg-mainBg"
+        class="laptop:hidden flex flex-col justify-center h-full fixed top-0 left-0 p-8 w-full mobile-nav z-10 bg-mainBg"
       >
         <ul class="mb-2">
           <li
             v-for="link in links"
             :key="link.name"
-            class="text-gray-300 text-xl py-4 font-semibold transition duration-300 cursor-pointer hover:text-green-500"
+            class="text-gray-300 text-xl py-4 font-semibold transition duration-300 cursor-pointer hover:text-primary"
           >
             <a :href="link.href">{{ link.name }}</a>
           </li>
@@ -56,15 +54,24 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import Button from '@/components/Button.vue';
+
 import Link from '@/types/Link';
 
 export default defineComponent({
+  components: {
+    Button,
+  },
   setup() {
     const mobileNav = ref<boolean>(false);
     const links = ref<Link[]>([
       {
         href: '#home',
         name: 'Home',
+      },
+      {
+        href: '#about',
+        name: 'About',
       },
       {
         href: '#transactions',

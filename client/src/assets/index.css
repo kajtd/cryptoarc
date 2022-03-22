@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +10,12 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  font-family: 'Orbitron', sans-serif;
   @apply min-h-screen my-0 mx-auto bg-mainBg text-grayLight;
 }
 
@@ -29,4 +36,8 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.glass {
+  background: linear-gradient(to right top, #10192b, #142d46);
 }
