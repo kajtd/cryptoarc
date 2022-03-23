@@ -1,0 +1,1 @@
+# temporary smart contract readme
