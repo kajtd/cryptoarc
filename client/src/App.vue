@@ -1,11 +1,13 @@
 <template>
-  <Navbar />
-  <Welcome />
-  <About />
-  <LatestTransactions />
-  <Coins />
-  <News />
-  <Footer />
+  <div id="home">
+    <Navbar />
+    <Welcome />
+    <About />
+    <LatestTransactions />
+    <Coins />
+    <News />
+    <Footer />
+  </div>
 </template>
 
 <script lang="ts">

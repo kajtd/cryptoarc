@@ -3,7 +3,7 @@
     id="market"
     class="max-w-7xl w-full flex flex-col justify-evenly p-8 mt-4 md:mt-0 md:px-12"
   >
-    <h2 class="text-gray-200 font-bold text-4xl mb-4">Current market</h2>
+    <h2 class="text-gray-200 font-bold text-2xl sm:text-4xl mb-4">Current market</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="(coin, index) in coins"
@@ -28,10 +28,11 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import fetchData from '@/composables/useFetch.ts';
+import Coin from '@/types/Coin';
 
 export default defineComponent({
   setup() {
-    let coins = ref([]);
+    let coins = ref<Coin[]>();
     const apiOptions = {
       method: 'GET',
       url: `${process.env.VUE_APP_COINS_API_URL}/coins`,

@@ -113,11 +113,9 @@ export const useTransactionsStore = defineStore('user', () => {
         }));
 
         transactions.value = structuredTransactions;
-      } else {
-        console.log('Metamask is not detected.');
       }
     } catch (error) {
-      console.log(error);
+      console.log('Metamask is not detected.');
     }
   };
 

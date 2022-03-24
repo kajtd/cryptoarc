@@ -42,6 +42,7 @@
           <li
             v-for="link in links"
             :key="link.name"
+            @click="toggleMobileNav"
             class="text-gray-300 text-xl py-4 font-semibold transition duration-300 cursor-pointer hover:text-primary"
           >
             <a :href="link.href">{{ link.name }}</a>
@@ -129,7 +130,7 @@ export default defineComponent({
 .menu-btn > span,
 .menu-btn > span::before,
 .menu-btn > span::after {
-  @apply block w-full h-1 rounded absolute  bg-gray-300 transition-transform duration-300;
+  @apply block w-full h-1  absolute  bg-gray-300 transition-transform duration-300;
 }
 .menu-btn > span::before {
   content: '';
