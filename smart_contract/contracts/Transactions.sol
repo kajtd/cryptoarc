@@ -17,14 +17,14 @@ contract Transactions {
 
     Transaction[] transactions;
 
-    function addToBlockchain(address payable receiver, uint amount, string memory message) public {
+    function addToBlockchain(address payable receiver, uint amount, string calldata message) external {
         transactionCount += 1;
         transactions.push(Transaction(msg.sender, receiver, amount, message, block.timestamp));
 
         emit Transfer(msg.sender, receiver, amount, message, block.timestamp);
     }
 
-    function getAllTransactions() public view returns (Transaction[] memory) {
+    function getAllTransactions() external view returns (Transaction[] memory) {
         return transactions;
     }
 

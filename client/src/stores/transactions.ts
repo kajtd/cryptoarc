@@ -8,7 +8,7 @@ export const useTransactionsStore = defineStore('user', () => {
   const account = ref(null);
   const loading = ref(false);
   const transactions = ref([]);
-  const transactionCount = ref(localStorage.getItem('transactionCount'));
+  const transactionCount = ref(0);
   const { ethereum } = window as any;
 
   const createEthereumContract = () => {
@@ -38,10 +38,6 @@ export const useTransactionsStore = defineStore('user', () => {
           ],
         });
 
-        // console.log(contractABI);
-        // console.log(contractAddress);
-        // console.log(addressTo, parsedAmount, message);
-
         const transactionHash = await transactionsContract.addToBlockchain(
           addressTo,
           parsedAmount,
@@ -54,8 +50,7 @@ export const useTransactionsStore = defineStore('user', () => {
         console.log('Finish');
 
         loading.value = false;
-        const transactionsNumber = await transactionsContract.getTransactionCount();
-        transactionCount.value = transactionsNumber.toNumber();
+        transactionCount.value++;
 
         window.location.reload();
       }
@@ -107,11 +102,13 @@ export const useTransactionsStore = defineStore('user', () => {
         const structuredTransactions = availableTransactions.map((transaction: any) => ({
           addressTo: transaction.receiver,
           addressFrom: transaction.sender,
-          timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
+          timestamp: new Date(transaction.timestamp.toNumber() * 1000),
           message: transaction.message,
           amount: parseInt(transaction.amount._hex) / 10 ** 18,
         }));
 
+        const transactionsNumber = await transactionsContract.getTransactionCount();
+        transactionCount.value = transactionsNumber.toNumber();
         transactions.value = structuredTransactions;
       }
     } catch (error) {
@@ -119,28 +116,10 @@ export const useTransactionsStore = defineStore('user', () => {
     }
   };
 
-  const checkIfTransactionsExists = async () => {
-    try {
-      if (ethereum) {
-        const transactionsContract = createEthereumContract();
-
-        window.localStorage.setItem(
-          'transactionCount',
-          await transactionsContract.getTransactionCount()
-        );
-      }
-    } catch (error) {
-      console.log(error);
-
-      throw new Error('Metamask is not detected');
-    }
-  };
-
   return {
     account,
     connectWallet,
     checkIfWalletIsConnected,
-    checkIfTransactionsExists,
     sendTransaction,
     transactions,
     transactionCount,
