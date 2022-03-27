@@ -8,10 +8,10 @@
       <article
         v-for="(article, index) in news"
         :key="index"
-        class="glass text-gray-300 bg-opacity-50 bg-clip-padding shadow-xl rounded-md mt-4 cursor-pointer"
+        class="glass text-gray-300 shadow-xl rounded-md mt-4 cursor-pointer p-4"
       >
         <a :href="article.url" target="_blank">
-          <div class="px-4 relative py-2">
+          <div class="relative">
             <header class="flex items-center justify-between">
               <p class="text-blueLight text-sm mb-1">{{ article?.category || 'Crypto' }}</p>
               <p class="text-blueLight text-sm mb-1">

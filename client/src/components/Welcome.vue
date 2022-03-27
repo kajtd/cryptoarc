@@ -14,7 +14,7 @@
     </div>
     <div class="glass flex flex-col justify-center pt-24 max-w-sm rounded-3xl p-4 mt-12 md:mt-0">
       <h4 class="text-center text-sm font-medium">Current Wallet Balance</h4>
-      <h2 class="text-gray-200 font-bold text-center text-4xl my-3">0.0952 ETH</h2>
+      <h2 class="text-gray-200 font-bold text-center text-4xl my-3">{{ 0.47218 }} ETH</h2>
       <select
         name="network"
         id="network"
@@ -27,8 +27,9 @@
       <form
         @submit.prevent="sendTransaction(formData)"
         action=""
-        class="bg-gray-800 bg-opacity-50 bg-clip-padding shadow-xl p-4 rounded-xl mt-4"
+        class="bg-gray-800 bg-opacity-50 bg-clip-padding shadow-xl p-4 rounded-xl mt-4 relative"
       >
+        <Loader v-if="loading" />
         <input
           v-model="formData.addressTo"
           placeholder="Address To"
@@ -66,18 +67,20 @@ import { defineComponent, onMounted, ref, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
 import Button from '@/components/Button.vue';
+import Loader from '@/components/Loader.vue';
 import CoinAnimation from '@/components/CoinAnimation.vue';
 import Transaction from '@/types/Transaction';
 
 export default defineComponent({
   components: {
     Button,
+    Loader,
     CoinAnimation,
   },
   setup() {
     const transactionsStore = useTransactionsStore();
-    const { account, transactionCount } = storeToRefs(transactionsStore);
-    const { connectWallet, checkIfWalletIsConnected, sendTransaction, checkIfTransactionsExists } =
+    const { account, transactionCount, loading } = storeToRefs(transactionsStore);
+    const { connectWallet, checkIfWalletIsConnected, sendTransaction, getAllTransactions } =
       useTransactionsStore();
 
     const formData = ref<Transaction>({
@@ -91,8 +94,8 @@ export default defineComponent({
     });
 
     return {
-      transactionsStore,
       account,
+      loading,
       connectWallet,
       sendTransaction,
       formData,

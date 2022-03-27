@@ -1,5 +1,9 @@
 <template>
-  <div v-if="account" id="transactions" class="p-8 mt-4 md:px-12 w-full max-w-7xl">
+  <div
+    v-if="account && transactions.length > 0"
+    id="transactions"
+    class="p-8 mt-4 md:px-12 w-full max-w-7xl"
+  >
     <h2 class="text-gray-200 font-bold text-4xl mb-4">Latest transactions</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <div
@@ -25,7 +29,7 @@
             {{ formatAddress(transaction.addressTo) }}
           </p>
           <p class="text-blueLight font-medium absolute top-0 right-0 m-2 text-xs">
-            {{ transaction.timestamp }}
+            {{ transaction.timestamp.toLocaleString() }}
           </p>
           <p class="text-blueLight mt-5 mb-2 trucate">{{ transaction.message }}</p>
         </div>
