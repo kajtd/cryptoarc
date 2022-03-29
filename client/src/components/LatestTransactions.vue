@@ -44,7 +44,7 @@
     <h2 class="text-gray-200 font-bold text-4xl mb-4">
       Connect your Metamask wallet to see last transactions
     </h2>
-    <Button @click="connectWallet">Connect wallet</Button>
+    <ConnectButton>Connect wallet</ConnectButton>
   </div>
 </template>
 
@@ -52,16 +52,16 @@
 import { defineComponent, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
-import Button from '@/components/Button.vue';
+import ConnectButton from '@/components/ConnectButton.vue';
 
 export default defineComponent({
   components: {
-    Button,
+    ConnectButton,
   },
   setup() {
     const transactionsStore = useTransactionsStore();
     const { transactions, account } = storeToRefs(transactionsStore);
-    const { getAllTransactions, connectWallet } = useTransactionsStore();
+    const { getAllTransactions } = useTransactionsStore();
 
     onMounted(() => {
       getAllTransactions();
@@ -77,7 +77,6 @@ export default defineComponent({
     return {
       transactions,
       account,
-      connectWallet,
       lastThreeTransactions,
       formatAddress,
     };

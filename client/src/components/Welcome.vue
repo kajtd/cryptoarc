@@ -10,7 +10,7 @@
         <li class="flex">Track your transactions.</li>
         <li class="flex">Stay up to date with latest crypto news.</li>
       </ul>
-      <Button @click="connectWallet">Connect wallet</Button>
+      <ConnectButton>Connect wallet</ConnectButton>
     </div>
     <div class="glass flex flex-col justify-center pt-24 max-w-sm rounded-3xl p-4 mt-12 md:mt-0">
       <h4 class="text-center text-sm font-medium">Current Wallet Balance</h4>
@@ -77,21 +77,21 @@
 import { defineComponent, onMounted, ref, reactive, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
-import Button from '@/components/Button.vue';
+import ConnectButton from '@/components/ConnectButton.vue';
 import Loader from '@/components/Loader.vue';
 import CoinAnimation from '@/components/CoinAnimation.vue';
 import StructuredTransaction from '@/types/StructuredTransaction';
 
 export default defineComponent({
   components: {
-    Button,
+    ConnectButton,
     Loader,
     CoinAnimation,
   },
   setup() {
     const transactionsStore = useTransactionsStore();
     const { account, transactionCount, loading } = storeToRefs(transactionsStore);
-    const { connectWallet, checkIfWalletIsConnected, sendTransaction, getAllTransactions } =
+    const { checkIfWalletIsConnected, sendTransaction, getAllTransactions } =
       useTransactionsStore();
 
     const formData = reactive<StructuredTransaction>({
@@ -124,7 +124,6 @@ export default defineComponent({
     return {
       account,
       loading,
-      connectWallet,
       submitForm,
       formData,
       transactionCount,

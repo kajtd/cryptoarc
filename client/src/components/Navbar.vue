@@ -30,7 +30,7 @@
             <a :href="link.href">{{ link.name }}</a>
           </li>
         </ul>
-        <Button @click="connectWallet" class="text-sm ml-12"> Connect wallet </Button>
+        <ConnectButton class="text-sm ml-12"> Connect wallet </ConnectButton>
       </nav>
     </div>
     <transition name="mobile-nav">
@@ -48,7 +48,7 @@
             <a :href="link.href">{{ link.name }}</a>
           </li>
         </ul>
-        <Button @click="connectWallet"> Connect wallet </Button>
+        <ConnectButton> Connect wallet </ConnectButton>
       </nav>
     </transition>
   </header>
@@ -56,16 +56,14 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import Button from '@/components/Button.vue';
-import { useTransactionsStore } from '@/stores/transactions';
+import ConnectButton from '@/components/ConnectButton.vue';
 import Link from '@/types/Link';
 
 export default defineComponent({
   components: {
-    Button,
+    ConnectButton,
   },
   setup() {
-    const { connectWallet } = useTransactionsStore();
     const mobileNav = ref<boolean>(false);
     const links = ref<Link[]>([
       {
@@ -95,7 +93,7 @@ export default defineComponent({
       document.body.classList.toggle('modal');
     }
 
-    return { mobileNav, links, toggleMobileNav, connectWallet };
+    return { mobileNav, links, toggleMobileNav };
   },
 });
 </script>
