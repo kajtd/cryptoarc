@@ -25,7 +25,7 @@
         <option value="Ropsten">Ropsten</option>
       </select>
       <form
-        @submit.prevent="sendTransaction(formData)"
+        @submit.prevent="submitForm(formData)"
         action=""
         class="bg-gray-800 bg-opacity-50 bg-clip-padding shadow-xl p-4 rounded-xl mt-4 relative"
       >
@@ -34,17 +34,25 @@
           v-model="formData.addressTo"
           placeholder="Address To"
           name="addressTo"
+          required
           type="text"
           class="my-2 w-full rounded-md p-3 outline-none bg-gray-900 bg-opacity-60 text-gray-400 border-none text-sm"
         />
+        <span v-show="addressError" class="text-xs text-red-400">
+          You need to write correct ethereum address
+        </span>
         <input
           v-model="formData.amount"
           placeholder="Amount"
           name="amount"
+          required
           step="0.001"
           type="number"
           class="my-2 w-full rounded-md p-3 outline-none bg-gray-900 bg-opacity-60 text-gray-400 border-none text-sm"
         />
+        <span v-show="amountError" class="text-xs text-red-400">
+          You need to specify positive amount of Ether
+        </span>
         <textarea
           v-model="formData.message"
           placeholder="Message"
@@ -57,19 +65,22 @@
           value="Send"
           class="bg-primary w-full mt-2 py-4 rounded-md shadow-2xl shadow-primary cursor-pointer"
         />
+        <span v-show="accountError" class="text-xs text-red-400">
+          You need to connect to the Metamask
+        </span>
       </form>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watchEffect } from 'vue';
+import { defineComponent, onMounted, ref, reactive, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
 import Button from '@/components/Button.vue';
 import Loader from '@/components/Loader.vue';
 import CoinAnimation from '@/components/CoinAnimation.vue';
-import Transaction from '@/types/Transaction';
+import StructuredTransaction from '@/types/StructuredTransaction';
 
 export default defineComponent({
   components: {
@@ -83,23 +94,43 @@ export default defineComponent({
     const { connectWallet, checkIfWalletIsConnected, sendTransaction, getAllTransactions } =
       useTransactionsStore();
 
-    const formData = ref<Transaction>({
+    const formData = reactive<StructuredTransaction>({
       addressTo: '',
       amount: 0,
       message: '',
     });
 
+    const amountError = ref(false);
+    const addressError = ref(false);
+    const accountError = ref(false);
+
     watchEffect(async (transactionCount) => {
       checkIfWalletIsConnected();
     });
+
+    const validateForm = () => {
+      const walletRegex = '^0x[a-fA-F0-9]{40}$';
+      addressError.value = formData.addressTo === '' || !formData.addressTo.match(walletRegex);
+      amountError.value = formData.amount <= 0;
+      accountError.value = !account.value;
+    };
+
+    const submitForm = (formData) => {
+      validateForm();
+      if (!addressError.value && !amountError.value && !accountError.value)
+        sendTransaction(formData);
+    };
 
     return {
       account,
       loading,
       connectWallet,
-      sendTransaction,
+      submitForm,
       formData,
       transactionCount,
+      addressError,
+      amountError,
+      accountError,
     };
   },
 });

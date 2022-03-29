@@ -47,7 +47,6 @@
 import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
-import Transaction from '@/types/Transaction';
 
 export default defineComponent({
   setup() {
