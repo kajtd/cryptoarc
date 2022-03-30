@@ -8,7 +8,7 @@
       <div
         v-for="(coin, index) in coins"
         :key="index"
-        class="glass border-secondary border-t-2 rounded-md mt-4 p-6"
+        class="glass border-primary border-t-2 rounded-md mt-4 p-6"
       >
         <div class="flex justify-between mb-8">
           <img :src="coin.iconUrl" :alt="coin.name" class="h-12" />
@@ -16,22 +16,109 @@
             {{ parseFloat(coin.price).toFixed(2) }}$
           </h3>
         </div>
-        <h2 class="text-gray-300 text-lg font-semibold">
-          <span>{{ coin.rank }}. </span>
-          {{ coin.name }}
-        </h2>
+        <div class="flex justify-between">
+          <h2 class="text-gray-300 text-lg font-semibold">
+            <span>{{ coin.rank }}. </span>
+            {{ coin.name }}
+          </h2>
+          <LineChart
+            :chartData="{
+              labels: [
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+              ],
+              datasets: [
+                {
+                  data: coin.sparkline,
+                  fill: true,
+                  borderColor: '#CCFB02',
+                  backgroundColor: 'transparent',
+                },
+              ],
+            }"
+            :options="options"
+            :width="100"
+            :height="50"
+          />
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref, computed } from 'vue';
 import fetchData from '@/composables/useFetch.ts';
 import Coin from '@/types/Coin';
+import { LineChart } from 'vue-chart-3';
+import { Chart, ChartOptions, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 export default defineComponent({
+  components: { LineChart },
   setup() {
+    const options = computed<ChartOptions<'line'>>(() => ({
+      scales: {
+        yAxis: {
+          display: false,
+        },
+        xAxis: {
+          display: false,
+        },
+      },
+      animations: {
+        tension: {
+          duration: 500,
+          easing: 'linear',
+          from: 0,
+          to: 1,
+          loop: true,
+        },
+      },
+      elements: {
+        point: {
+          radius: 0,
+        },
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: false,
+        },
+        tooltip: {
+          enabled: false,
+        },
+      },
+    }));
+
     let coins = ref<Coin[]>();
     const apiOptions = {
       method: 'GET',
@@ -57,6 +144,7 @@ export default defineComponent({
     });
     return {
       coins,
+      options,
     };
   },
 });
