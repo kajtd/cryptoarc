@@ -1,13 +1,10 @@
 import axios from 'axios';
-import ApiOptions from '@/types/ApiOptions';
+import { ApiOptions } from '@/types/ApiOptions';
+import { ServerResponse } from '@/types/ServerResponse';
 
-const fetchData = async (options: ApiOptions) => {
-  try {
-    const { data: response } = await axios.request(options);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+const fetchData = async (options: ApiOptions): Promise<ServerResponse> => {
+  const { data: response } = await axios.request(options);
+  return response;
 };
 
 export default fetchData;

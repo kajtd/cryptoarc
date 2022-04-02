@@ -1,8 +1,5 @@
 <template>
-  <button
-    @click="connectWallet"
-    class="bg-primary text-gray-300 mt-2 py-4 w-44 rounded-md shadow-2xl"
-  >
+  <button @click="connectWallet" class="btn-main w-44">
     {{ account ? 'Connected ✔️' : 'Connect wallet' }}
   </button>
 </template>
@@ -15,7 +12,7 @@ import { useTransactionsStore } from '@/stores/transactions';
 export default defineComponent({
   setup() {
     const transactionsStore = useTransactionsStore();
-    const { account, transactionCount, loading } = storeToRefs(transactionsStore);
+    const { account } = storeToRefs(transactionsStore);
     const { connectWallet } = useTransactionsStore();
     return {
       account,

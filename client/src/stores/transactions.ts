@@ -3,13 +3,15 @@ import { ethers } from 'ethers';
 import { defineStore } from 'pinia';
 import { contractABI, contractAddress } from '../utils/constants';
 import Transaction from '@/types/Transaction';
+import ContractTransaction from '@/types/ContractTransaction';
 
 export const useTransactionsStore = defineStore('user', () => {
   const account = ref(null);
   const loading = ref(false);
-  const transactions = ref([]);
+  const transactions = ref<Transaction[]>([]);
   const transactionCount = ref(0);
-  const { ethereum } = window as any;
+  const accountBalance = ref(0);
+  const ethereum = window['ethereum'];
 
   const createEthereumContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
@@ -99,13 +101,15 @@ export const useTransactionsStore = defineStore('user', () => {
 
         const availableTransactions = await transactionsContract.getAllTransactions();
 
-        const structuredTransactions = availableTransactions.map((transaction: any) => ({
-          addressTo: transaction.receiver,
-          addressFrom: transaction.sender,
-          timestamp: new Date(transaction.timestamp.toNumber() * 1000),
-          message: transaction.message,
-          amount: parseInt(transaction.amount._hex) / 10 ** 18,
-        }));
+        const structuredTransactions = availableTransactions.map(
+          (transaction: ContractTransaction) => ({
+            addressTo: transaction.receiver,
+            addressFrom: transaction.sender,
+            timestamp: new Date(transaction.timestamp * 1000),
+            message: transaction.message,
+            amount: parseInt(transaction.amount._hex) / 10 ** 18,
+          })
+        );
 
         const transactionsNumber = await transactionsContract.getTransactionCount();
         transactionCount.value = transactionsNumber.toNumber();
@@ -125,5 +129,6 @@ export const useTransactionsStore = defineStore('user', () => {
     transactionCount,
     loading,
     getAllTransactions,
+    accountBalance,
   };
 });

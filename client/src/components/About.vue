@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
 

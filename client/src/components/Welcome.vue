@@ -14,7 +14,7 @@
     </div>
     <div class="glass flex flex-col justify-center pt-24 max-w-sm rounded-3xl p-4 mt-12 md:mt-0">
       <h4 class="text-center text-sm font-medium">Current Wallet Balance</h4>
-      <h2 class="text-gray-200 font-bold text-center text-4xl my-3">{{ 0.47218 }} ETH</h2>
+      <h2 class="text-gray-200 font-bold text-center text-4xl my-3">{{ accountBalance }} ETH</h2>
       <select
         name="network"
         id="network"
@@ -60,11 +60,7 @@
           type="text"
           class="my-2 w-full rounded-md p-3 outline-none bg-gray-900 bg-opacity-60 text-gray-400 border-none text-sm"
         />
-        <input
-          type="submit"
-          value="Send"
-          class="bg-primary w-full mt-2 py-4 rounded-md shadow-2xl shadow-primary cursor-pointer"
-        />
+        <input type="submit" value="Send" class="btn-main w-full mt-2 py-4" />
         <span v-show="accountError" class="text-xs text-red-400">
           You need to connect to the Metamask
         </span>
@@ -74,13 +70,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive, watchEffect } from 'vue';
+import { defineComponent, ref, reactive, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
 import ConnectButton from '@/components/ConnectButton.vue';
 import Loader from '@/components/Loader.vue';
 import CoinAnimation from '@/components/CoinAnimation.vue';
-import StructuredTransaction from '@/types/StructuredTransaction';
+import Transaction from '@/types/Transaction';
 
 export default defineComponent({
   components: {
@@ -90,11 +86,10 @@ export default defineComponent({
   },
   setup() {
     const transactionsStore = useTransactionsStore();
-    const { account, transactionCount, loading } = storeToRefs(transactionsStore);
-    const { checkIfWalletIsConnected, sendTransaction, getAllTransactions } =
-      useTransactionsStore();
+    const { account, loading, accountBalance } = storeToRefs(transactionsStore);
+    const { checkIfWalletIsConnected, sendTransaction } = useTransactionsStore();
 
-    const formData = reactive<StructuredTransaction>({
+    const formData = reactive<Transaction>({
       addressTo: '',
       amount: 0,
       message: '',
@@ -104,7 +99,7 @@ export default defineComponent({
     const addressError = ref(false);
     const accountError = ref(false);
 
-    watchEffect(async (transactionCount) => {
+    watchEffect(() => {
       checkIfWalletIsConnected();
     });
 
@@ -123,10 +118,10 @@ export default defineComponent({
 
     return {
       account,
+      accountBalance,
       loading,
       submitForm,
       formData,
-      transactionCount,
       addressError,
       amountError,
       accountError,

@@ -1,7 +1,9 @@
 interface Transaction {
   addressTo: string;
-  amount: number;
+  addressFrom?: string;
+  timestamp?: string;
   message: string;
+  amount: number;
 }
 
 export default Transaction;
