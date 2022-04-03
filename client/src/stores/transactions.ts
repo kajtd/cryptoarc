@@ -11,6 +11,7 @@ export const useTransactionsStore = defineStore('user', () => {
   const transactions = ref<Transaction[]>([]);
   const transactionCount = ref(0);
   const accountBalance = ref(0);
+  const accountAddress = ref('');
   const ethereum = window['ethereum'];
 
   const createEthereumContract = () => {
@@ -46,10 +47,8 @@ export const useTransactionsStore = defineStore('user', () => {
           message
         );
 
-        console.log('Transaction pending');
         loading.value = true;
         await transactionHash.wait();
-        console.log('Finish');
 
         loading.value = false;
         transactionCount.value++;
@@ -69,7 +68,6 @@ export const useTransactionsStore = defineStore('user', () => {
       }
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
 
-      console.log('Connected: ', accounts[0]);
       account.value = accounts[0];
       await getAllTransactions();
     } catch (error) {
@@ -87,7 +85,6 @@ export const useTransactionsStore = defineStore('user', () => {
 
       if (accounts.length) {
         account.value = accounts[0];
-        console.log('You are already connected', account);
       }
     } catch (error) {
       console.log(error);
@@ -114,6 +111,13 @@ export const useTransactionsStore = defineStore('user', () => {
         const transactionsNumber = await transactionsContract.getTransactionCount();
         transactionCount.value = transactionsNumber.toNumber();
         transactions.value = structuredTransactions;
+
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        accountBalance.value = Number(await provider.getBalance(signer.getAddress())) / 10 ** 18;
+        signer.getAddress().then((address) => {
+          accountAddress.value = address;
+        });
       }
     } catch (error) {
       console.log('Metamask is not detected.');
@@ -130,5 +134,6 @@ export const useTransactionsStore = defineStore('user', () => {
     loading,
     getAllTransactions,
     accountBalance,
+    accountAddress,
   };
 });

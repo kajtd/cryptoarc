@@ -13,14 +13,19 @@
       class="text-lg text-gray-500 flex flex-col md:flex-row md:items-center justify-between gap-y-4"
     >
       <li class="w-36 h-36">
-        <p class="text-6xl text-secondary font-semibold mb-1">{{ transactionCount }}</p>
+        <p class="text-6xl text-secondary font-semibold mb-1">
+          {{ transactionCount <= 100 ? transactionCount : '100+' }}
+        </p>
         <p>Transactions made.</p>
       </li>
       <li v-if="transactions.length > 0" class="w-36 h-36">
         <p class="text-6xl text-secondary font-semibold mb-1">
           {{
-            Math.ceil(
-              Math.abs(new Date() - transactions[transactions.length - 1].timestamp) / (1000 * 60)
+            Math.min(
+              Math.ceil(
+                Math.abs(new Date() - transactions[transactions.length - 1].timestamp) / (1000 * 60)
+              ),
+              100
             )
           }}+
         </p>
@@ -29,11 +34,14 @@
       <li v-if="transactions.length > 0" class="w-36 h-36">
         <p class="text-6xl text-secondary font-semibold mb-1">
           {{
-            Math.max.apply(
-              Math,
-              transactions.map(function (t) {
-                return t.amount;
-              })
+            Math.min(
+              Math.max.apply(
+                Math,
+                transactions.map(function (t) {
+                  return t.amount;
+                })
+              ),
+              100
             )
           }}
         </p>

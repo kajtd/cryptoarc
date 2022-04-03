@@ -13,17 +13,18 @@
       <ConnectButton>Connect wallet</ConnectButton>
     </div>
     <div class="glass flex flex-col justify-center pt-24 max-w-sm rounded-3xl p-4 mt-12 md:mt-0">
+      <h4 class="text-center text-sm font-medium text-gray-400">
+        {{ formatAddress(accountAddress) }}
+      </h4>
       <h4 class="text-center text-sm font-medium">Current Wallet Balance</h4>
-      <h2 class="text-gray-200 font-bold text-center text-4xl my-3">{{ accountBalance }} ETH</h2>
-      <select
-        name="network"
-        id="network"
-        class="my-2 w-1/2 self-center rounded-md p-3 outline-none bg-gray-900 focus:bg-gray-900 bg-opacity-60 text-gray-400 border-none text-sm"
+      <h2 class="text-gray-200 font-bold text-center text-4xl my-3">
+        {{ accountBalance.toFixed(4) }} ETH
+      </h2>
+      <div
+        class="my-2 w-1/2 self-center rounded-md p-3 outline-none bg-gray-900 focus:bg-gray-900 bg-opacity-60 text-gray-400 border-none text-sm text-center"
       >
-        <option value="Rinkeby" selected>Rinkeby</option>
-        <option value="Mainnet">Mainnet</option>
-        <option value="Ropsten">Ropsten</option>
-      </select>
+        <span class="text-primary">Ropsten Network</span>
+      </div>
       <form
         @submit.prevent="submitForm(formData)"
         action=""
@@ -86,7 +87,7 @@ export default defineComponent({
   },
   setup() {
     const transactionsStore = useTransactionsStore();
-    const { account, loading, accountBalance } = storeToRefs(transactionsStore);
+    const { account, loading, accountBalance, accountAddress } = storeToRefs(transactionsStore);
     const { checkIfWalletIsConnected, sendTransaction } = useTransactionsStore();
 
     const formData = reactive<Transaction>({
@@ -116,15 +117,20 @@ export default defineComponent({
         sendTransaction(formData);
     };
 
+    const formatAddress = (string = '') =>
+      `${string.slice(0, 5)}...${string.slice(string.length - 5)}`;
+
     return {
       account,
       accountBalance,
+      accountAddress,
       loading,
       submitForm,
       formData,
       addressError,
       amountError,
       accountError,
+      formatAddress,
     };
   },
 });
