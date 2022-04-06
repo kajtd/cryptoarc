@@ -1,25 +1,25 @@
 <template>
   <section
-    class="max-w-7xl w-full flex flex-col md:flex-row md:items-center justify-evenly p-8 mt-4 md:mt-0"
+    class="max-w-7xl w-full flex flex-col md:flex-row md:items-center justify-evenly p-8 mt-4 md:mt-0 mx-auto"
   >
     <div class="flex flex-col gap-6 max-w-md mt-12 md:mt-0">
       <CoinAnimation />
       <h1 class="font-bold text-3xl md:text-5xl">Best way to handle your crypto</h1>
       <ul class="text-lg">
-        <li class="flex">Send cryptos to everyone.</li>
-        <li class="flex">Track your transactions.</li>
+        <li class="flex">Send Ether to everyone.</li>
+        <li class="flex">Check latest transactions on smart contract.</li>
         <li class="flex">Stay up to date with latest crypto news.</li>
       </ul>
       <ConnectButton>Connect wallet</ConnectButton>
     </div>
     <div class="glass flex flex-col justify-center pt-24 max-w-sm rounded-3xl p-4 mt-12 md:mt-0">
-      <h4 class="text-center text-sm font-medium text-gray-400">
+      <span v-show="account" class="text-center text-sm font-medium text-gray-400">
         {{ formatAddress(accountAddress) }}
-      </h4>
-      <h4 class="text-center text-sm font-medium">Current Wallet Balance</h4>
-      <h2 class="text-gray-200 font-bold text-center text-4xl my-3">
+      </span>
+      <h2 class="text-center text-sm font-medium">Current Wallet Balance</h2>
+      <h3 class="text-gray-200 font-bold text-center text-4xl my-3">
         {{ accountBalance.toFixed(4) }} ETH
-      </h2>
+      </h3>
       <div
         class="my-2 w-1/2 self-center rounded-md p-3 outline-none bg-gray-900 focus:bg-gray-900 bg-opacity-60 text-gray-400 border-none text-sm text-center"
       >

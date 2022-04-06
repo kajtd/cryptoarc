@@ -1,7 +1,7 @@
 <template>
   <section
     id="market"
-    class="max-w-7xl w-full flex flex-col justify-evenly p-8 mt-4 md:mt-0 md:px-12"
+    class="max-w-7xl w-full flex flex-col justify-evenly p-8 mt-4 md:mt-0 md:px-12 mx-auto"
   >
     <h2 class="text-gray-200 font-bold text-2xl sm:text-4xl mb-4">Current market</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -11,16 +11,16 @@
         class="glass border-primary border-t-2 rounded-md mt-4 p-6"
       >
         <div class="flex justify-between mb-8">
-          <img :src="coin.iconUrl" :alt="coin.name" class="h-12" />
-          <h3 class="text-gray-200 font-medium text-xl">
+          <img :src="coin.iconUrl" :alt="coin.name" width="48" height="48" class="h-12" />
+          <h3 class="text-blueLight font-medium text-xl">
             {{ parseFloat(coin.price).toFixed(2) }}$
           </h3>
         </div>
         <div class="flex justify-between">
-          <h2 class="text-gray-300 text-lg font-semibold">
+          <h4 class="text-gray-300 text-lg font-semibold">
             <span>{{ coin.rank }}. </span>
             {{ coin.name }}
-          </h2>
+          </h4>
           <LineChart
             :chartData="{
               labels: [

@@ -1,25 +1,18 @@
 <template>
-  <div
+  <section
     v-if="account && transactions.length > 0"
     id="transactions"
-    class="p-8 mt-4 md:px-12 w-full max-w-7xl"
+    class="p-8 mt-4 md:px-12 w-full max-w-7xl mx-auto"
   >
     <h2 class="text-gray-200 font-bold text-2xl sm:text-4xl mb-4">Latest transactions</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="(transaction, index) in lastThreeTransactions"
         :key="index"
-        class="glass text-gray-300 bg-opacity-50 bg-clip-padding shadow-xl rounded-md mt-4"
+        class="glass text-gray-300 bg-opacity-50 bg-clip-padding shadow-xl rounded-md mt-4 border-secondary border-t-2"
       >
-        <div class="p-2 rounded-md">
-          <img
-            :src="require('@/assets/img/ether-image.jpg')"
-            alt=""
-            class="opacity-50 rounded-md"
-          />
-        </div>
         <div class="pt-8 pb-2 p-6 relative">
-          <h2 class="text-gray-200 font-bold text-2xl mb-2">{{ transaction.amount }} ETH</h2>
+          <h3 class="text-blueLight font-bold text-5xl mt-2 mb-4">{{ transaction.amount }} ETH</h3>
           <p class="text-gray-400">
             <span class="text-gray-300 font-medium">From:</span>
             {{ formatAddress(transaction.addressFrom) }}
@@ -28,24 +21,24 @@
             <span class="text-gray-300 font-medium">To:</span>
             {{ formatAddress(transaction.addressTo) }}
           </p>
-          <p class="text-blueLight font-medium absolute top-0 right-0 m-2 text-xs">
+          <p class="text-gray-400 font-medium absolute top-0 right-0 m-2 text-xs">
             {{ transaction.timestamp.toLocaleString() }}
           </p>
           <p class="text-blueLight mt-5 mb-2">{{ transaction?.message }}</p>
         </div>
       </div>
     </div>
-  </div>
-  <div
+  </section>
+  <section
     v-else
     id="transactions"
-    class="p-8 mt-4 md:mt-0 md:px-12 w-full max-w-7xl text-center py-24"
+    class="p-8 mt-4 md:mt-0 md:px-12 w-full max-w-7xl text-center py-24 mx-auto"
   >
-    <h2 class="text-gray-200 font-bold text-4xl mb-4">
+    <h4 class="text-gray-200 font-bold text-4xl mb-4">
       Connect your Metamask wallet to see last transactions
-    </h2>
+    </h4>
     <ConnectButton>Connect wallet</ConnectButton>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

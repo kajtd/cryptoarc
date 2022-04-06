@@ -1,7 +1,7 @@
 <template>
   <section
     id="news"
-    class="max-w-7xl w-full flex flex-col justify-evenly p-8 mt-4 md:mt-0 md:px-12 pb-4"
+    class="max-w-7xl w-full flex flex-col justify-evenly p-8 mt-4 md:mt-0 md:px-12 pb-4 mx-auto"
   >
     <h2 class="text-gray-200 font-bold text-2xl sm:text-4xl mb-4">Latest crypto news</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -12,15 +12,17 @@
       >
         <a :href="article.url" target="_blank">
           <div class="relative">
-            <header class="flex items-center justify-between">
+            <header
+              class="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between"
+            >
               <p class="text-blueLight text-sm mb-1">{{ article?.category || 'Crypto' }}</p>
               <p class="text-blueLight text-sm mb-1">
                 {{ new Date(article.datePublished).toLocaleDateString('en-US') }}
               </p>
             </header>
-            <h2 class="text-gray-200 font-bold text-base sm:text-lg h-16 mt-2">
+            <h3 class="text-gray-200 font-bold text-base sm:text-lg h-16 mt-2">
               {{ truncateString(article.name, 44) }}
-            </h2>
+            </h3>
             <p class="text-gray-400 mt-3 text-sm sm:text-base">
               {{ truncateString(article.description, 100) }}
             </p>
