@@ -43,5 +43,5 @@ ul {
 }
 
 .btn-main {
-  @apply bg-primary text-gray-300 mt-2 py-4  rounded-md shadow-2xl;
+  @apply bg-primary text-gray-300 mt-2 py-4  rounded-md shadow-2xl cursor-pointer;
 }
