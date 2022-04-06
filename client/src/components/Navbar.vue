@@ -22,12 +22,13 @@
       </div>
       <nav class="h-full hidden laptop:flex items-center">
         <ul class="flex gap-2">
-          <li
-            v-for="link in links"
-            :key="link.name"
-            class="text-gray-300 text-sm p-2 mx-1 font-semibold transition duration-300 cursor-pointer hover:text-primary"
-          >
-            <a :href="link.href">{{ link.name }}</a>
+          <li v-for="link in links" :key="link.name" class="p-2 mx-1">
+            <a
+              :href="link.href"
+              class="text-gray-300 text-sm font-semibold transition duration-300 cursor-pointer hover:text-primary"
+            >
+              {{ link.name }}
+            </a>
           </li>
         </ul>
         <ConnectButton class="text-sm ml-12"> Connect wallet </ConnectButton>
@@ -39,13 +40,14 @@
         class="laptop:hidden flex flex-col justify-center h-full fixed top-0 left-0 p-8 w-full mobile-nav z-10 bg-mainBg"
       >
         <ul class="mb-2">
-          <li
-            v-for="link in links"
-            :key="link.name"
-            @click="toggleMobileNav"
-            class="text-gray-300 text-xl py-4 font-semibold transition duration-300 cursor-pointer hover:text-primary"
-          >
-            <a :href="link.href">{{ link.name }}</a>
+          <li v-for="link in links" class="py-4" :key="link.name">
+            <a
+              @click="toggleMobileNav"
+              class="text-gray-300 text-xl font-semibold transition duration-300 cursor-pointer hover:text-primary"
+              :href="link.href"
+            >
+              {{ link.name }}
+            </a>
           </li>
         </ul>
         <ConnectButton> Connect wallet </ConnectButton>
