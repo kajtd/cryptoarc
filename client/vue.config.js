@@ -2,7 +2,7 @@ module.exports = {
   pwa: {
     start_url: '/',
     display: 'standalone',
-    name: 'Cryptonow',
+    name: 'Cryptoarc',
     themeColor: '#D93D6F',
     backgroundColor: '#101822',
     icons: {

@@ -17,7 +17,7 @@
       </div>
       <div class="laptop:flex-1 laptop:justify-start">
         <a href="/" class="flex items-center">
-          <span class="text-2xl text-primary">🔗cryptonow</span>
+          <span class="text-2xl text-primary">🔗cryptoarc</span>
         </a>
       </div>
       <nav class="h-full hidden laptop:flex items-center">
