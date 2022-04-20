@@ -1,3 +1,4 @@
+<!-- Coin animation from https://codepen.io/coder787/pen/oNYgvpV -->
 <template>
   <div class="coin"></div>
 </template>
@@ -8,14 +9,14 @@
   left: -30px;
   z-index: -12;
   opacity: 0.55;
-  animation: x 1s infinite;
+  animation: coinAnimation 1s infinite;
   transform: scale(0.7);
-  -webkit-animation: x 1s infinite;
-  -moz-animation: x 1s infinite;
-  -o-animation: x 1s infinite;
+  -webkit-animation: coinAnimation 1s infinite;
+  -moz-animation: coinAnimationx 1s infinite;
+  -o-animation: coinAnimation 1s infinite;
 }
 
-@keyframes x {
+@keyframes coinAnimation {
   0%,
   16.7% {
     box-shadow: 80px 30px 0 0 rgba(0, 0, 0, 1), 90px 30px 0 0 rgba(0, 0, 0, 1),
