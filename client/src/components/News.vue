@@ -35,30 +35,21 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import fetchData from '@/composables/useFetch.ts';
 import { News } from '@/types/News';
 
 export default defineComponent({
   setup() {
     let news = ref<News[]>();
-    const apiOptions = {
-      method: 'GET',
-      url: `${process.env.VUE_APP_NEWS_API_URL}/news/search?q=Cryptocurrency&count=5`,
-      params: { safeSearch: 'Off', textFormat: 'Raw' },
-      headers: {
-        'x-bingapis-sdk': 'true',
-        'x-rapidapi-host': process.env.VUE_APP_NEWS_API_HOST,
-        'x-rapidapi-key': process.env.VUE_APP_API_KEY,
-      },
-    };
 
     const truncateString = (string = '', maxLength = 30) =>
       string.length > maxLength ? `${string.substring(0, maxLength)}…` : string;
 
     onMounted(() => {
-      fetchData(apiOptions).then((data) => {
-        news.value = data.value;
-      });
+      fetch(`./../../.netlify/functions/fetch-data/fetch-data?data=news`)
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          news.value = responseJSON.value;
+        });
     });
     return {
       news,

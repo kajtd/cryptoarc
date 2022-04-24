@@ -73,7 +73,6 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed } from 'vue';
-import fetchData from '@/composables/useFetch.ts';
 import Coin from '@/types/Coin';
 import { LineChart } from 'vue-chart-3';
 import { Chart, ChartOptions, registerables } from 'chart.js';
@@ -120,27 +119,13 @@ export default defineComponent({
     }));
 
     let coins = ref<Coin[]>();
-    const apiOptions = {
-      method: 'GET',
-      url: `${process.env.VUE_APP_COINS_API_URL}/coins`,
-      params: {
-        referenceCurrencyUuid: 'yhjMzLPhuIDl',
-        timePeriod: '24h',
-        tiers: '1',
-        orderBy: 'marketCap',
-        orderDirection: 'desc',
-        limit: '50',
-        offset: '0',
-      },
-      headers: {
-        'x-rapidapi-host': process.env.VUE_APP_COINS_API_HOST,
-        'x-rapidapi-key': process.env.VUE_APP_API_KEY,
-      },
-    };
+
     onMounted(() => {
-      fetchData(apiOptions).then((data) => {
-        coins.value = data.data.coins.splice(0, 10);
-      });
+      fetch(`./../../.netlify/functions/fetch-data/fetch-data?data=coins`)
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          coins.value = responseJSON.data.coins.splice(0, 10);
+        });
     });
     return {
       coins,
