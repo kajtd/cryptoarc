@@ -62,19 +62,15 @@ To get a local copy up and running follow these simple example steps.
 
 1.  Go to the [RapidAPI](https://rapidapi.com/).
 2.  Get API options for [Coinranking API Documentation](https://rapidapi.com/microsoft-azure-org-microsoft-cognitive-services/api/bing-news-search1) and [Bing News Search API Documentation](https://rapidapi.com/Coinranking/api/coinranking1/details).
-3.  Enter your API options in `client/.env`.
+3.  Enter your API key in `client/.env`.
     ```sh
     VUE_APP_API_KEY = 'ENTER YOUR API KEY'
-    VUE_APP_COINS_API_URL = 'ENTER YOUR COINRANKING URL'
-    VUE_APP_COINS_API_HOST = 'ENTER YOUR COINRANKING HOST'
-    VUE_APP_NEWS_API_URL = 'ENTER YOUR NEWS SEARCH URL'
-    VUE_APP_NEWS_API_HOST = 'ENTER YOUR NEWS SEARCH HOST'
     ```
 4.  Install NPM packages and run the app.
     ```sh
     cd client
     npm install
-    npm run serve
+    npm run netlify dev
     ```
 
 ### Installation - smart contract
