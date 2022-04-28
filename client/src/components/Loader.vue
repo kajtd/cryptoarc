@@ -1,13 +1,13 @@
 <template>
   <div
-    class="glass rounded-3xl h-full w-full flex flex-col items-center justify-center absolute top-0 left-0"
+    class="glass rounded-3xl h-full w-full flex flex-col items-center justify-center top-0 left-0"
   >
     <div class="loader inline-block relative w-[80px] h-[80px]">
       <div></div>
       <div></div>
     </div>
     <p class="text-gray-400 text-sm text-center mt-3">
-      We are currently processing your transaction. It may take a while.
+      <slot />
     </p>
   </div>
 </template>

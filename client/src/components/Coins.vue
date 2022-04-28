@@ -1,5 +1,6 @@
 <template>
   <section
+    v-if="coins"
     id="market"
     class="max-w-7xl w-full flex flex-col justify-evenly p-8 mt-4 md:mt-0 md:px-12 mx-auto"
   >
@@ -76,12 +77,17 @@ import { defineComponent, onMounted, ref, computed } from 'vue';
 import Coin from '@/types/Coin';
 import { LineChart } from 'vue-chart-3';
 import { Chart, ChartOptions, registerables } from 'chart.js';
+import { storeToRefs } from 'pinia';
+import { useTransactionsStore } from '@/stores/transactions';
 
 Chart.register(...registerables);
 
 export default defineComponent({
   components: { LineChart },
   setup() {
+    const transactionsStore = useTransactionsStore();
+    const { coinsLoaded } = storeToRefs(transactionsStore);
+
     const options = computed<ChartOptions<'line'>>(() => ({
       scales: {
         yAxis: {
@@ -125,7 +131,8 @@ export default defineComponent({
         .then((response) => response.json())
         .then((responseJSON) => {
           coins.value = responseJSON.data.coins.splice(0, 10);
-        });
+        })
+        .finally(() => (coinsLoaded.value = true));
     });
     return {
       coins,

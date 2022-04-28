@@ -1,5 +1,6 @@
 <template>
   <section
+    v-if="news"
     id="news"
     class="max-w-7xl w-full flex flex-col justify-evenly p-8 mt-4 md:mt-0 md:px-12 pb-4 mx-auto"
   >
@@ -36,9 +37,14 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import { News } from '@/types/News';
+import { storeToRefs } from 'pinia';
+import { useTransactionsStore } from '@/stores/transactions';
 
 export default defineComponent({
   setup() {
+    const transactionsStore = useTransactionsStore();
+    const { newsLoaded } = storeToRefs(transactionsStore);
+
     let news = ref<News[]>();
 
     const truncateString = (string = '', maxLength = 30) =>
@@ -49,7 +55,8 @@ export default defineComponent({
         .then((response) => response.json())
         .then((responseJSON) => {
           news.value = responseJSON.value;
-        });
+        })
+        .finally(() => (newsLoaded.value = true));
     });
     return {
       news,

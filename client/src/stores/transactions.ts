@@ -8,6 +8,8 @@ import ContractTransaction from '@/types/ContractTransaction';
 export const useTransactionsStore = defineStore('user', () => {
   const account = ref(null);
   const loading = ref(false);
+  const newsLoaded = ref(false);
+  const coinsLoaded = ref(false);
   const transactions = ref<Transaction[]>([]);
   const transactionCount = ref(0);
   const accountBalance = ref(0);
@@ -135,5 +137,7 @@ export const useTransactionsStore = defineStore('user', () => {
     getAllTransactions,
     accountBalance,
     accountAddress,
+    newsLoaded,
+    coinsLoaded,
   };
 });
