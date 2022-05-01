@@ -20,7 +20,7 @@ body {
 }
 
 body.modal {
-  @apply overflow-hidden;
+  @apply overflow-hidden laptop:overflow-auto;
 }
 
 a {

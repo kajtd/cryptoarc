@@ -30,7 +30,7 @@
         action=""
         class="bg-gray-800 bg-opacity-50 bg-clip-padding shadow-xl p-4 rounded-xl mt-4 relative"
       >
-        <Loader v-if="loading" class="absolute">
+        <Loader v-if="loading" class="absolute rounded-3xl">
           We are currently processing your transaction. It may take a while.
         </Loader>
         <input

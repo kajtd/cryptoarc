@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="glass rounded-3xl h-full w-full flex flex-col items-center justify-center top-0 left-0"
-  >
+  <div class="glass h-full w-full flex flex-col items-center justify-center top-0 left-0 z-50">
     <div class="loader inline-block relative w-[80px] h-[80px]">
       <div></div>
       <div></div>

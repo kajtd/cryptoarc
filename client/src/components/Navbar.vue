@@ -21,11 +21,12 @@
         </a>
       </div>
       <nav class="h-full hidden laptop:flex items-center">
-        <ul class="flex gap-2">
-          <li v-for="link in links" :key="link.name" class="p-2 mx-1">
+        <ul class="flex items-center">
+          <li v-for="link in links" :key="link.name">
             <a
+              v-show="!link.disabled || account"
               :href="link.href"
-              class="text-gray-300 text-sm font-semibold transition duration-300 cursor-pointer hover:text-primary"
+              class="text-gray-300 text-sm font-semibold transition duration-300 cursor-pointer hover:text-primary p-4"
             >
               {{ link.name }}
             </a>
@@ -40,10 +41,11 @@
         class="laptop:hidden flex flex-col justify-center h-full fixed top-0 left-0 p-8 w-full mobile-nav z-10 bg-mainBg"
       >
         <ul class="mb-2">
-          <li v-for="link in links" class="py-4" :key="link.name">
+          <li v-for="link in links" :key="link.name">
             <a
+              v-show="!link.disabled || account"
               @click="toggleMobileNav"
-              class="text-gray-300 text-xl font-semibold transition duration-300 cursor-pointer hover:text-primary"
+              class="text-gray-300 text-xl font-semibold transition duration-300 cursor-pointer hover:text-primary inline-block py-2"
               :href="link.href"
             >
               {{ link.name }}
@@ -60,33 +62,43 @@
 import { defineComponent, ref } from 'vue';
 import ConnectButton from '@/components/ConnectButton.vue';
 import Link from '@/types/Link';
+import { storeToRefs } from 'pinia';
+import { useTransactionsStore } from '@/stores/transactions';
 
 export default defineComponent({
   components: {
     ConnectButton,
   },
   setup() {
+    const transactionsStore = useTransactionsStore();
+    const { account } = storeToRefs(transactionsStore);
+
     const mobileNav = ref<boolean>(false);
     const links = ref<Link[]>([
       {
         href: '#home',
         name: 'Home',
+        disabled: false,
       },
       {
         href: '#about',
         name: 'About',
+        disabled: true,
       },
       {
         href: '#transactions',
         name: 'Transactions',
+        disabled: true,
       },
       {
         href: '#market',
         name: 'Market',
+        disabled: false,
       },
       {
         href: '#news',
         name: 'News',
+        disabled: false,
       },
     ]);
 
@@ -95,7 +107,7 @@ export default defineComponent({
       document.body.classList.toggle('modal');
     }
 
-    return { mobileNav, links, toggleMobileNav };
+    return { mobileNav, links, toggleMobileNav, account };
   },
 });
 </script>
