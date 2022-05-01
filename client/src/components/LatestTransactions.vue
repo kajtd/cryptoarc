@@ -9,9 +9,9 @@
       <div
         v-for="(transaction, index) in lastThreeTransactions"
         :key="index"
-        class="glass text-gray-300 bg-opacity-50 bg-clip-padding shadow-xl rounded-md mt-4 border-secondary border-t-2"
+        class="glass text-gray-300 bg-opacity-50 bg-clip-padding shadow-xl rounded-md mt-4 border-secondary border-t-2 p-4 flex flex-col relative justify-between"
       >
-        <div class="pt-8 pb-2 p-6 relative">
+        <div>
           <h3 class="text-blueLight font-bold text-5xl mt-2 mb-4">{{ transaction.amount }} ETH</h3>
           <p class="text-gray-400">
             <span class="text-gray-300 font-medium">From:</span>
@@ -24,8 +24,10 @@
           <p class="text-gray-400 font-medium absolute top-0 right-0 m-2 text-xs">
             {{ transaction.timestamp.toLocaleString() }}
           </p>
-          <p class="text-blueLight mt-5 mb-2">{{ transaction?.message }}</p>
         </div>
+        <p class="text-blueLight mt-2">
+          {{ transaction?.message }}
+        </p>
       </div>
     </div>
   </section>
