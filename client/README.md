@@ -34,7 +34,7 @@
 
 ## About The Project
 
-![Website gif](https://api.apify.com/v2/key-value-stores/DZICAZ5C5SqFeTEob/records/cryptoarc.netlify.app-scroll_original)
+![Website gif](../screencapture.png)
 
 Cryptoarc is a web3 dapp for sending ETH to others through the blockchain network. Client written in Vue and Typescript interacts with Solidity smart contract and allows you to log in with Metamask and send transactions.
 
