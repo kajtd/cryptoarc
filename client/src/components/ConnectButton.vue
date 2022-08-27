@@ -1,5 +1,5 @@
 <template>
-  <button @click="connectWallet" class="btn-main w-44">
+  <button @click="connectWallet" class="btn-primary w-44">
     {{ account ? 'Connected ✔️' : 'Connect wallet' }}
   </button>
 </template>

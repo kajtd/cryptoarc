@@ -5,8 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "netlify": "./node_modules/.bin/netlify"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@heroicons/vue": "^1.0.5",

@@ -6,6 +6,7 @@ export interface News {
   url: string;
   image: NewsImage;
   description: string;
+  category?: string;
   about?: About[];
   provider: Provider[];
   datePublished: string;

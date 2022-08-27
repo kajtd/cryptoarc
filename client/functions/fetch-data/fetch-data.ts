@@ -1,9 +1,15 @@
-const axios = require('axios');
+import axios, { AxiosRequestConfig } from 'axios';
 
-const handler = async (event, context) => {
+interface FetchEvent extends Event {
+  queryStringParameters: {
+    data: string;
+  };
+}
+
+const handler = async (event: FetchEvent) => {
   const { data } = event.queryStringParameters;
 
-  const newsOptions = {
+  const newsOptions: AxiosRequestConfig = {
     method: 'GET',
     url: 'https://bing-news-search1.p.rapidapi.com/news/search?q=Cryptocurrency&count=5&setLang=EN',
     params: { safeSearch: 'Off', textFormat: 'Raw' },
@@ -14,7 +20,7 @@ const handler = async (event, context) => {
     },
   };
 
-  const coinsOptions = {
+  const coinsOptions: AxiosRequestConfig = {
     method: 'GET',
     url: 'https://coinranking1.p.rapidapi.com/coins',
     params: {

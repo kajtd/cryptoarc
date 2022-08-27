@@ -16,7 +16,7 @@
             <header
               class="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between"
             >
-              <p class="text-blueLight text-sm mb-1">{{ article?.category || 'Crypto' }}</p>
+              <p class="text-blueLight text-sm mb-1">{{ article.category || 'Crypto' }}</p>
               <p class="text-blueLight text-sm mb-1">
                 {{ new Date(article.datePublished).toLocaleDateString('en-US') }}
               </p>
@@ -47,7 +47,7 @@ export default defineComponent({
 
     let news = ref<News[]>();
 
-    const truncateString = (string = '', maxLength = 30) =>
+    const truncateString = (string = '', maxLength = 30): string =>
       string.length > maxLength ? `${string.substring(0, maxLength)}…` : string;
 
     onMounted(() => {

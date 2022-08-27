@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { ethers } from 'ethers';
+import { Contract, ethers } from 'ethers';
 import { defineStore } from 'pinia';
 import { contractABI, contractAddress } from '../utils/constants';
 import Transaction from '@/types/Transaction';
@@ -16,7 +16,7 @@ export const useTransactionsStore = defineStore('user', () => {
   const accountAddress = ref('');
   const ethereum = window['ethereum'];
 
-  const createEthereumContract = () => {
+  const createEthereumContract = (): Contract => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
@@ -24,7 +24,7 @@ export const useTransactionsStore = defineStore('user', () => {
     return transactionsContract;
   };
 
-  async function sendTransaction(formData: Transaction) {
+  const sendTransaction = async (formData: Transaction): Promise<void> => {
     try {
       if (ethereum) {
         const { addressTo, amount, message } = formData;
@@ -60,9 +60,9 @@ export const useTransactionsStore = defineStore('user', () => {
     } catch (e) {
       console.log('error: ', e);
     }
-  }
+  };
 
-  async function connectWallet() {
+  const connectWallet = async (): Promise<void> => {
     try {
       if (!ethereum) {
         console.log('You have to connect to MetaMask first');
@@ -75,9 +75,9 @@ export const useTransactionsStore = defineStore('user', () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  async function checkIfWalletIsConnected() {
+  const checkIfWalletIsConnected = async (): Promise<void> => {
     try {
       if (!ethereum) {
         console.log('You have to connect to MetaMask first');
@@ -91,9 +91,9 @@ export const useTransactionsStore = defineStore('user', () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getAllTransactions = async () => {
+  const getAllTransactions = async (): Promise<void> => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();

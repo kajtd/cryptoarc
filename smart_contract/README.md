@@ -70,7 +70,7 @@ To get a local copy up and running follow these simple example steps.
     ```sh
     cd client
     npm install
-    npm run netlify dev
+    netlify dev
     ```
 
 ### Installation - smart contract
