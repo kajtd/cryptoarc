@@ -63,7 +63,7 @@
           type="text"
           class="my-2 w-full rounded-md p-3 outline-none bg-gray-900 bg-opacity-60 text-gray-400 border-none text-sm"
         />
-        <input type="submit" value="Send" class="btn-main w-full mt-2 py-4" />
+        <input type="submit" value="Send" class="btn-primary w-full mt-2 py-4" />
         <span v-show="accountError" class="text-xs text-red-400">
           You need to connect to the Metamask
         </span>
@@ -80,6 +80,7 @@ import ConnectButton from '@/components/ConnectButton.vue';
 import Loader from '@/components/Loader.vue';
 import CoinAnimation from '@/components/CoinAnimation.vue';
 import Transaction from '@/types/Transaction';
+import { formatAddress } from '@/utils/methods';
 
 export default defineComponent({
   components: {
@@ -96,6 +97,7 @@ export default defineComponent({
       addressTo: '',
       amount: 0,
       message: '',
+      timestamp: 0,
     });
 
     const amountError = ref(false);
@@ -118,9 +120,6 @@ export default defineComponent({
       if (!addressError.value && !amountError.value && !accountError.value)
         sendTransaction(formData);
     };
-
-    const formatAddress = (string = '') =>
-      `${string.slice(0, 5)}...${string.slice(string.length - 5)}`;
 
     return {
       account,

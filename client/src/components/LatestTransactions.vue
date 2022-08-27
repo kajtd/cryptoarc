@@ -21,12 +21,15 @@
             <span class="text-gray-300 font-medium">To:</span>
             {{ formatAddress(transaction.addressTo) }}
           </p>
-          <p class="text-gray-400 font-medium absolute top-0 right-0 m-2 text-xs">
+          <p
+            v-if="transaction.timestamp"
+            class="text-gray-400 font-medium absolute top-0 right-0 m-2 text-xs"
+          >
             {{ transaction.timestamp.toLocaleString() }}
           </p>
         </div>
         <p class="text-blueLight mt-2">
-          {{ transaction?.message }}
+          {{ transaction.message }}
         </p>
       </div>
     </div>
@@ -48,6 +51,8 @@ import { defineComponent, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTransactionsStore } from '@/stores/transactions';
 import ConnectButton from '@/components/ConnectButton.vue';
+import Transaction from '@/types/Transaction';
+import { formatAddress } from '@/utils/methods';
 
 export default defineComponent({
   components: {
@@ -62,12 +67,9 @@ export default defineComponent({
       getAllTransactions();
     });
 
-    const lastThreeTransactions = computed(() => {
+    const lastThreeTransactions = computed<Transaction[]>(() => {
       return transactions.value.slice().reverse().slice(0, 3);
     });
-
-    const formatAddress = (string = '') =>
-      `${string.slice(0, 5)}...${string.slice(string.length - 5)}`;
 
     return {
       transactions,

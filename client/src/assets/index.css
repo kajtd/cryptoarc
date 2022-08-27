@@ -42,6 +42,6 @@ ul {
   background: linear-gradient(to right top, #10192b, #142d46);
 }
 
-.btn-main {
+.btn-primary {
   @apply bg-primary text-gray-300 mt-2 py-4  rounded-md shadow-2xl cursor-pointer;
 }

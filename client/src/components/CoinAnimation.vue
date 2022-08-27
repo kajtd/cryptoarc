@@ -2,6 +2,7 @@
 <template>
   <div class="coin"></div>
 </template>
+
 <style scoped>
 .coin {
   position: relative;

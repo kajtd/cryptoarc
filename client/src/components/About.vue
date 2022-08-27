@@ -23,7 +23,7 @@
           {{
             Math.min(
               Math.ceil(
-                Math.abs(new Date() - transactions[transactions.length - 1].timestamp) / (1000 * 60)
+                Math.abs(Date.now() - transactions[transactions.length - 1].timestamp) / (1000 * 60)
               ),
               100
             )
@@ -37,9 +37,7 @@
             Math.min(
               Math.max.apply(
                 Math,
-                transactions.map(function (t) {
-                  return t.amount;
-                })
+                transactions.map((t) => t.amount)
               ),
               100
             )
