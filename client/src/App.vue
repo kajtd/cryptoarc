@@ -7,7 +7,7 @@
     <Coins />
     <News />
     <Footer />
-    <Loader v-show="!newsLoaded || !coinsLoaded || !secondPassed" class="fixed">
+    <Loader v-show="!(newsLoaded && coinsLoaded)" class="fixed">
       <span class="text-2xl text-primary">🔗cryptoarc</span>
     </Loader>
   </div>
@@ -40,18 +40,10 @@ export default defineComponent({
   setup() {
     const transactionsStore = useTransactionsStore();
     const { newsLoaded, coinsLoaded } = storeToRefs(transactionsStore);
-    const secondPassed = ref(false);
-
-    onMounted(() => {
-      setTimeout(() => {
-        secondPassed.value = true;
-      }, 1000);
-    });
 
     return {
       newsLoaded,
       coinsLoaded,
-      secondPassed,
     };
   },
 });
