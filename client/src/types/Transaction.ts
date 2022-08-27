@@ -1,7 +1,7 @@
 interface Transaction {
   addressTo: string;
   addressFrom?: string;
-  timestamp?: string;
+  timestamp: number;
   message: string;
   amount: number;
 }

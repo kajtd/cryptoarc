@@ -1,8 +1,8 @@
 export interface ApiOptions {
-  method: any;
+  method: unknown;
   url: string;
   params: Params;
-  headers: any;
+  headers: unknown;
 }
 
 export interface Params {
